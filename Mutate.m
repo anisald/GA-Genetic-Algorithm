@@ -1,12 +1,16 @@
-function y=Mutate(x,mu)
+function y=Mutate(x,VarRange)
 
     nVar=numel(x);
+
+    j=randi([1 nVar]);
     
-    nmu=ceil(mu*nVar);
-    
-    j=randsample(nVar,nmu);
+    VarMin=min(VarRange);
+    VarMax=max(VarRange);
+    sigma=(VarMax-VarMin)/10;
     
     y=x;
-    y(j)=1-x(j);
+    y(j)=x(j)+sigma*randn;
+    
+    y=min(max(y,VarMin),VarMax);
 
 end
